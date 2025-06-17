@@ -7,7 +7,7 @@ from scipy.stats import chi2_contingency, pointbiserialr, kendalltau, spearmanr,
 from IPython.display import display
 from sklearn.preprocessing import OrdinalEncoder # type: ignore
 from scipy import stats
-from sklearn.metrics import classification_report # type: ignore
+from sklearn.metrics import confusion_matrix, classification_report # type: ignore
 
 # 1. Data Exploration
 def data_explore(df):
@@ -803,7 +803,7 @@ def evaluate_model_class_report(model, X_train, y_train, X_test, y_test):
     print('------------------------------------------------------')
     print("Test Data:")
     print(classification_report(y_test, y_pred_tuning_test))
-    
+
      # 4. Confusion Matrix
     cm_train = confusion_matrix(y_train, y_pred_tuning_train)
     cm_test = confusion_matrix(y_test, y_pred_tuning_test)
