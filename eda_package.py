@@ -355,9 +355,9 @@ def correlation_analysis_binary(df, target_col, alpha=0.05, h0=None, h1=None, sh
     target = df[target_col]
     
     # Pastikan target adalah biner (0 dan 1)
-    if target.nunique() != 2:
-        print(f"Kolom target '{target_col}' bukan biner. Target harus memiliki dua nilai unik.")
-        return
+    # if target.nunique() != 2:
+    #     print(f"Kolom target '{target_col}' bukan biner. Target harus memiliki dua nilai unik.")
+    #     return
     
     # Ubah kolom target menjadi tipe kategori
     df[target_col] = df[target_col].astype('category')
@@ -619,6 +619,12 @@ def t_test_analysis_with_input(df, target_col, feature_col, alpha=0.05, h0=None,
         print(f"H0: {h0}")
         print(f"H1: {h1}")
 
+    if p_val < alpha:
+        print("\nKesimpulan: Ada hubungan antara", target_col, "dan", feature_col)
+    else:
+        print("\nKesimpulan: Tidak ada hubungan antara", target_col, "dan", feature_col)
+    
+
 # 10. plot_line_relationship
 def plot_relationship(dataset, x_col, target_cols, kind='line', figsize=(10, 7), custom_colors=None):
     """
@@ -745,6 +751,11 @@ def anova_analysis_with_input(df, target_col, feature_col, alpha=0.05, h0=None, 
         print("\n=== Hipotesis yang Diberikan ===")
         print(f"H0: {h0}")
         print(f"H1: {h1}")
+
+    if p_val < alpha:
+        print("\nKesimpulan: Ada hubungan antara", target_col, "dan", feature_col)
+    else:
+        print("\nKesimpulan: Tidak ada hubungan antara", target_col, "dan", feature_col)
 
 # 12. Chi-Square Test
 def chi_square_analysis(df, target_col, feature_col, alpha=0.05, h0=None, h1=None):
