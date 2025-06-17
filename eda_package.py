@@ -333,20 +333,6 @@ def correlation_analysis(df, nilai_skew=0.5):
 
 # 6. Point-Bisserial Correlation
 def correlation_analysis_binary(df, target_col, alpha=0.05, h0=None, h1=None, show=True):
-    """
-    Fungsi ini melakukan analisis korelasi antara fitur numerik dan target biner dengan dua metode:
-    1. Point-Biserial Correlation untuk data numerik dan target biner.
-    2. Chi-Square Analysis untuk fitur kategorikal dan target biner.
-
-    Argumen:
-    - df: DataFrame yang berisi data yang ingin dianalisis
-    - target_col: Kolom target (harus biner)
-    - alpha: Tingkat signifikansi untuk pengujian hipotesis (default 0.05)
-    - h0: Hipotesis Nol (H0), jika tidak diinput, akan menggunakan default
-    - h1: Hipotesis Alternatif (H1), jika tidak diinput, akan menggunakan default
-    - show_hypothesis_and_conclusion: Parameter untuk menampilkan atau menyembunyikan hipotesis dan kesimpulan (default True)
-    """
-    
     # Periksa apakah kolom target ada dalam DataFrame
     if target_col not in df.columns:
         print(f"Kolom target '{target_col}' tidak ditemukan.")
@@ -354,12 +340,7 @@ def correlation_analysis_binary(df, target_col, alpha=0.05, h0=None, h1=None, sh
     
     target = df[target_col]
     
-    # Pastikan target adalah biner (0 dan 1)
-    # if target.nunique() != 2:
-    #     print(f"Kolom target '{target_col}' bukan biner. Target harus memiliki dua nilai unik.")
-    #     return
-    
-    # Ubah kolom target menjadi tipe kategori
+    # Ubah kolom target menjadi tipe kategori jika belum
     df[target_col] = df[target_col].astype('category')
     
     print(f"\nAnalisis Korelasi terhadap target ===> '{target_col}'")
@@ -370,7 +351,6 @@ def correlation_analysis_binary(df, target_col, alpha=0.05, h0=None, h1=None, sh
         print("\nTidak ada kolom numerik untuk analisis Point-Biserial.")
     else:
         pb_results = []
-
         for col in df_num.columns:
             if col != target_col:
                 series = df[col].dropna()  # Menghapus missing values
@@ -391,62 +371,44 @@ def correlation_analysis_binary(df, target_col, alpha=0.05, h0=None, h1=None, sh
                     print(f"Kolom {col} tidak memenuhi kriteria target biner untuk Point-Biserial.")
 
         pb_df = pd.DataFrame(pb_results).sort_values(by='r_pb', ascending=False)
-
+        
         # Tampilkan hasil Point-Biserial
         print("\n=== Hasil Point-Biserial Correlation ===")
         print(pb_df)
 
-        # Menampilkan Hipotesis dan Kesimpulan jika diperlukan
         if show:
             if h0 is None or h1 is None:
                 for col in df_num.columns:
                     if col != target_col:
-                        # Jika hipotesis tidak diberikan, menggunakan default
-                        print("\n=== Hipotesis ===")
-                        print(f"H0: Tidak ada hubungan antara {target_col} dan {col}.")
+                        print(f"\nH0: Tidak ada hubungan antara {target_col} dan {col}.")
                         print(f"H1: Ada hubungan antara {target_col} dan {col}.")
             else:
                 print("\n=== Hipotesis yang Diberikan ===")
                 print(f"H0: {h0}")
                 print(f"H1: {h1}")
 
-            # Menampilkan kesimpulan
             for index, row in pb_df.iterrows():
-                for col in df_num.columns:
-                    if col != target_col:
-                        if row['p_value'] < alpha:
-                            print(f"\nKesimpulan: Ada hubungan antara {target_col} dan {row[{col}]}")
-                        else:
-                            print(f"\nKesimpulan: Tidak ada hubungan antara {target_col} dan {row[{col}]}")
+                if row['p_value'] < alpha:
+                    print(f"\nKesimpulan: Ada hubungan antara {target_col} dan {row['Feature']}")
+                else:
+                    print(f"\nKesimpulan: Tidak ada hubungan antara {target_col} dan {row['Feature']}")
 
-        # Heatmap untuk korelasi Point-Biserial
+        # Heatmap untuk Point-Biserial Correlation
         heatmap_df = pb_df.set_index('Feature')[['r_pb']]
         plt.figure(figsize=(8, 6))
-        sns.heatmap(
-            heatmap_df,
-            annot=True,
-            cmap='coolwarm',  # colormap warna-warni seperti correlation matrix
-            center=0,         # pusat warna di 0
-            linewidths=0.5,
-            fmt=".3f",        # format angka korelasi
-            cbar_kws={'label': 'Point-Biserial Correlation (r_pb)'}
-        )
-
-        plt.title(f'Point-Biserial Correlation Matrix terhadap "{target_col}"', fontsize=12)
+        sns.heatmap(heatmap_df, annot=True, cmap='coolwarm', center=0, linewidths=0.5, fmt=".3f", cbar_kws={'label': 'Point-Biserial Correlation (r_pb)'})
+        plt.title(f'Point-Biserial Correlation terhadap "{target_col}"', fontsize=12)
         plt.ylabel("Fitur")
-        plt.xlabel("")
         plt.tight_layout()
         plt.show()
-
+    
     # === 2. Analisis Chi-Square ===
     df_cat = df.select_dtypes(include='object')  # Memilih kolom kategorikal
     if df_cat.empty:
         print("\nTidak ada kolom kategorikal untuk analisis Chi-Square.")
     else:
         chi_results = []
-
         for col in df_cat.columns:
-            # Ubah kolom menjadi tipe kategori jika belum
             df[col] = df[col].astype('category')
             
             contingency_table = pd.crosstab(df[col], target)
@@ -463,48 +425,34 @@ def correlation_analysis_binary(df, target_col, alpha=0.05, h0=None, h1=None, sh
             })
 
         chi_df = pd.DataFrame(chi_results).sort_values(by='Chi2', ascending=False)
-
+        
         # Tampilkan hasil Chi-Square
         print("\n=== Hasil Chi-Square Analysis ===")
         print(chi_df)
 
-        # Menampilkan Hipotesis dan Kesimpulan jika diperlukan
         if show:
             if h0 is None or h1 is None:
                 for col in df_cat.columns:
                     if col != target_col:
-                        # Jika hipotesis tidak diberikan, menggunakan default
-                        print("\n=== Hipotesis ===")
-                        print(f"H0: Tidak ada hubungan antara {target_col} dan {col}.")
+                        print(f"\nH0: Tidak ada hubungan antara {target_col} dan {col}.")
                         print(f"H1: Ada hubungan antara {target_col} dan {col}.")
             else:
                 print("\n=== Hipotesis yang Diberikan ===")
                 print(f"H0: {h0}")
                 print(f"H1: {h1}")
 
-            # Menampilkan kesimpulan
             for index, row in chi_df.iterrows():
-                for col in df_cat.columns:
-                    if col != target_col:
-                        if row['p_value'] < alpha:
-                            print(f"\nKesimpulan: Ada hubungan antara {target_col} dan {row[{col}]}")
-                        else:
-                            print(f"\nKesimpulan: Tidak ada hubungan antara {target_col} dan {row[{col}]}")
+                if row['p_value'] < alpha:
+                    print(f"\nKesimpulan: Ada hubungan antara {target_col} dan {row['Feature']}")
+                else:
+                    print(f"\nKesimpulan: Tidak ada hubungan antara {target_col} dan {row['Feature']}")
 
-        # Heatmap untuk statistik Chi-Square
+        # Heatmap untuk Chi-Square Analysis
         heatmap_df = chi_df.set_index('Feature')[['Chi2']]
         plt.figure(figsize=(8, 6))
-        sns.heatmap(
-            heatmap_df,
-            annot=True,
-            cmap='YlGnBu',
-            fmt=".3f",
-            linewidths=0.5,
-            cbar_kws={'label': 'Chi-Square Statistic'}
-        )
+        sns.heatmap(heatmap_df, annot=True, cmap='YlGnBu', fmt=".3f", linewidths=0.5, cbar_kws={'label': 'Chi-Square Statistic'})
         plt.title(f'Chi-Square Analysis terhadap "{target_col}"', fontsize=12)
         plt.ylabel("Fitur")
-        plt.xlabel("")
         plt.tight_layout()
         plt.show()
 
@@ -855,3 +803,23 @@ def evaluate_model_class_report(model, X_train, y_train, X_test, y_test):
     print('------------------------------------------------------')
     print("Test Data:")
     print(classification_report(y_test, y_pred_tuning_test))
+    
+     # 4. Confusion Matrix
+    cm_train = confusion_matrix(y_train, y_pred_tuning_train)
+    cm_test = confusion_matrix(y_test, y_pred_tuning_test)
+
+    # Plot Confusion Matrix untuk Train Data
+    plt.figure(figsize=(6, 4))
+    sns.heatmap(cm_train, annot=True, fmt='d', cmap='Blues', xticklabels=['Predicted Negative', 'Predicted Positive'], yticklabels=['Actual Negative', 'Actual Positive'])
+    plt.title('Confusion Matrix - Train Data')
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    plt.show()
+
+    # Plot Confusion Matrix untuk Test Data
+    plt.figure(figsize=(6, 4))
+    sns.heatmap(cm_test, annot=True, fmt='d', cmap='Blues', xticklabels=['Predicted Negative', 'Predicted Positive'], yticklabels=['Actual Negative', 'Actual Positive'])
+    plt.title('Confusion Matrix - Test Data')
+    plt.xlabel('Predicted')
+    plt.ylabel('Actual')
+    plt.show()
