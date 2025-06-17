@@ -1,0 +1,40 @@
+1. Latar Belakang Adanya Bagging dan Cara Kerja Bagging
+Bagging (Bootstrap Aggregating) adalah teknik ensemble yang digunakan untuk meningkatkan akurasi prediksi model dengan mengurangi varians dan menghindari overfitting. Bagging bekerja dengan cara melatih beberapa model (biasanya model yang sama) pada subset data yang berbeda, yang diambil melalui proses bootstrap (sampling dengan pengembalian) dari data pelatihan. Setiap model dalam ensemble ini kemudian melakukan prediksi, dan hasil akhirnya didapatkan dengan cara agregasi (misalnya, mayoritas suara untuk klasifikasi atau rata-rata untuk regresi).
+
+Cara Kerja Bagging:
+- Sampling Data: Bagging membuat beberapa subset data dengan melakukan sampling acak dengan pengembalian (bootstrap sampling) dari dataset pelatihan.
+- Membangun Model: Model yang sama dilatih pada setiap subset data yang berbeda.
+- Agregasi Prediksi: Setelah model-model tersebut dilatih, prediksi masing-masing model digabungkan untuk menghasilkan prediksi akhir. Untuk masalah klasifikasi, prediksi akhir biasanya didapatkan dengan voting, sedangkan untuk regresi dilakukan dengan rata-rata prediksi.
+
+Teknik ini membantu mengurangi overfitting dan meningkatkan stabilitas model, terutama ketika model dasar (seperti decision tree) cenderung memiliki varians yang tinggi.
+
+2. Perbedaan Cara Kerja Algoritma Random Forest dengan Algoritma Boosting
+Random Forest dan Boosting adalah dua teknik ensemble yang sering digunakan dalam machine learning, tetapi keduanya memiliki pendekatan yang berbeda.
+
+Random Forest:
+- Pembuatan Model: Membuat banyak pohon keputusan secara paralel, di mana setiap pohon dilatih dengan subset data yang berbeda (melalui bootstrap sampling). Selain itu, pada setiap split di dalam pohon, hanya subset acak dari fitur yang dipilih, untuk memastikan keragaman antar pohon.
+- Penggabungan Prediksi: Prediksi akhir didapatkan dengan melakukan voting (untuk klasifikasi) atau rata-rata (untuk regresi) dari semua pohon yang ada dalam hutan.
+- Keunggulan: Random Forest sangat baik dalam mengurangi overfitting dan stabilitas model karena setiap pohon dilatih secara independen.
+
+Boosting:
+- Pembuatan Model: Boosting melatih model secara berurutan, di mana model-model selanjutnya dilatih untuk memperbaiki kesalahan yang dibuat oleh model sebelumnya. Pada setiap iterasi, bobot diberikan lebih besar pada data yang salah diklasifikasikan oleh model sebelumnya.
+- Penggabungan Prediksi: Prediksi akhir didapatkan dengan melakukan penjumlahan bertingkat atau pembobotan hasil prediksi dari setiap model.
+- Keunggulan: Boosting cenderung memberikan performa yang lebih baik karena memperbaiki kesalahan dengan cara yang berurutan, namun dapat lebih rentan terhadap overfitting, terutama jika jumlah iterasi sangat banyak.
+
+Secara singkat, Random Forest melatih model secara paralel dan menggunakan voting atau rata-rata untuk menggabungkan hasil, sedangkan Boosting melatih model secara berurutan dan menggabungkan prediksi dengan pembobotan berdasarkan kinerja model sebelumnya.
+
+3. Apa yang Dimaksud dengan Cross Validation?
+Cross Validation adalah teknik evaluasi model yang digunakan untuk mengukur performa model machine learning secara lebih andal dengan membagi dataset menjadi beberapa bagian (folds). Proses ini memungkinkan model untuk diuji dan dilatih pada berbagai subset data, sehingga memberikan gambaran yang lebih realistis tentang kinerja model pada data yang belum pernah dilihat sebelumnya.
+
+Proses Cross Validation:
+- Dataset dibagi menjadi k bagian (folds).
+- Model dilatih pada k-1 fold dan diuji pada fold yang tersisa.
+- Proses ini diulang sebanyak k kali, dengan setiap fold bergiliran menjadi data uji.
+- Hasil evaluasi akhir diperoleh dengan menghitung rata-rata dari skor yang diperoleh pada setiap fold.
+
+Manfaat:
+- Mengurangi variansi hasil evaluasi model yang disebabkan oleh pembagian data yang tidak representatif.
+- Memberikan gambaran lebih baik tentang kemampuan generalisasi model.
+- Lebih efektif untuk model yang rentan terhadap overfitting pada data pelatihan terbatas.
+
+Salah satu jenis cross-validation yang paling umum digunakan adalah k-fold cross-validation, di mana k biasanya berjumlah 5 atau 10.
