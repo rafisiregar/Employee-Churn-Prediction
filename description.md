@@ -1,4 +1,5 @@
-# Judul Project
+
+# Deteksi Potensi Resign Karyawan Menggunakan Machine Learning
 
 ## Repository Outline
 
@@ -9,6 +10,8 @@
 5. eda_package.py -- Custom package untuk melakukan EDA.
 6. README.md -- Instruksi Milestone 2
 7. description.md -- Penjelasan gambaran umum project.
+8. AttritionBoosting.pkl -- Model machine learning yang digunakan untuk memprediksi attrition karyawan.
+9. Folder deployment -- Berisikan data-data deployment proyek ini.
 
 ## Problem Background
 
@@ -24,13 +27,14 @@ Metode yang digunakan dalam membangun model ini adalah **machine learning superv
 
 ## Stacks
 
-Menggunakan Python untuk mengelola data dan melakukan perhitungan statistika, serta **Streamlit** untuk menguji coba model secara realtime (online). Pada Python, digunakan library **pandas** untuk mengelola dataframe, **numpy** untuk operasi numerik, **scipy** untuk analisis statistika, serta **seaborn** dan **matplotlib** untuk visualisasi data. **sklearn** digunakan untuk preprocessing data, model algoritma, dan evaluasi metrik seperti  **recall** ,  **precision** , dan  **f1-score** , serta untuk tuning hyperparameter dengan  **RandomizedSearchCV** . **KNNImputer** digunakan untuk imputasi data yang hilang, dan berbagai teknik **scaling** diterapkan dengan **RobustScaler** untuk menormalkan fitur agar model lebih efektif. Untuk **encoding** , digunakan **OneHotEncoder** dan **OrdinalEncoder** untuk mengonversi fitur kategorikal menjadi format yang bisa diproses model. Model dapat disimpan dan dimuat menggunakan  **pickle** , sementara **eda_package** adalah paket kustom untuk eksplorasi data. **Streamlit** akan digunakan untuk membuat aplikasi web interaktif yang memungkinkan pengguna untuk melihat visualisasi dan hasil analisis secara langsung.
+Menggunakan Python untuk mengelola data dan melakukan perhitungan statistika, serta **Streamlit** dan **HuggingFace** untuk menguji coba model secara realtime (online). Pada Python, digunakan library **pandas** untuk mengelola dataframe, **numpy** untuk operasi numerik, **scipy** untuk analisis statistika, serta **seaborn** dan **matplotlib** untuk visualisasi data. **sklearn** digunakan untuk preprocessing data, model algoritma, dan evaluasi metrik seperti  **recall** ,  **precision** , dan  **f1-score** , serta untuk tuning hyperparameter dengan  **RandomizedSearchCV** . **KNNImputer** digunakan untuk imputasi data yang hilang, dan berbagai teknik **scaling** diterapkan dengan **RobustScaler** untuk menormalkan fitur agar model lebih efektif. Untuk **encoding** , digunakan **OneHotEncoder** dan **OrdinalEncoder** untuk mengonversi fitur kategorikal menjadi format yang bisa diproses model. Model dapat disimpan dan dimuat menggunakan  **pickle** , sementara **eda_package** adalah paket kustom untuk eksplorasi data. **Streamlit** akan digunakan untuk membuat aplikasi web interaktif yang memungkinkan pengguna untuk melihat visualisasi dan hasil analisis secara langsung.
 
 ## Reference
 
 1. [Employee Attrition Classification Dataset](https://www.kaggle.com/datasets/stealthtechnologies/employee-attrition-dataset): Dataset ini mencakup berbagai fitur seperti usia, kepuasan kerja, gaji, lama bekerja, dan lainnya, yang dapat digunakan untuk membangun model machine learning guna memprediksi potensi resign karyawan.
 2. [A Comprehensive Guide to Data Imputation Techniques, Strategies, and Best Practices](https://medium.com/@tarangds/a-comprehensive-guide-to-data-imputation-techniques-strategies-and-best-practices-152a10fee543): Artikel ini memberikan panduan menyeluruh tentang teknik-teknik imputasi data, strategi yang tepat, serta praktik terbaik yang dapat diterapkan dalam menangani nilai yang hilang dalam dataset.
-3. [Streamlit - Aplikasi Web Interaktif](https://streamlit.io/): Streamlit digunakan untuk membuat aplikasi web interaktif yang memungkinkan pengguna untuk melihat visualisasi dan hasil analisis secara langsung dari model machine learning yang dikembangkan.
+3. **[ANALISIS FAKTOR-FAKTOR YANG MEMPENGARUHI KARYAWAN RESIGN PADA PT. SUMBER ALFARIA TRIJAYA TBK KOTA BANJARMASIN](https://eprints.uniska-bjm.ac.id/8005/1/ARTIKEL%20RATNA%20SARI%20FIX.pdf)**: Artikel ini membahas topik terkait analisis dan prediksi dalam konteks data karyawan dan attrition.
+4. [Streamlit - Aplikasi Web Interaktif](https://huggingface.co/spaces/egar1444/EmployeeAttritionPrediction): Streamlit digunakan untuk membuat aplikasi web interaktif yang memungkinkan pengguna untuk melihat visualisasi dan hasil analisis secara langsung dari model machine learning yang telah saya kembangkan untuk memprediksi attrition.
 
 **Referensi tambahan:**
 
