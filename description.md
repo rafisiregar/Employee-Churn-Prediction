@@ -1,17 +1,17 @@
-
 # Deteksi Potensi Resign Karyawan Menggunakan Machine Learning
 
 ## Repository Outline
 
-1. P0M1_rafi_siregar.ipynb -- Notebook analisis dan pengembangan model.
-2. P0M1_rafi_siregar_inf.ipynb -- Notebook untuk melakukan model inference.
+1. P1M2_rafi_siregar.ipynb -- Notebook analisis dan pengembangan model.
+2. P1M2_rafi_siregar_inf.ipynb -- Notebook untuk melakukan model inference.
 3. P1M2_rafi_siregar.csv -- Dataset attrition yang berasal dari kaggle.
-4. P1M2_rafi_siregar_conceptual.txt -- Conceptual Problem.
-5. eda_package.py -- Custom package untuk melakukan EDA.
-6. README.md -- Instruksi Milestone 2
-7. description.md -- Penjelasan gambaran umum project.
-8. AttritionBoosting.pkl -- Model machine learning yang digunakan untuk memprediksi attrition karyawan.
-9. Folder deployment -- Berisikan data-data deployment proyek ini.
+4. datainference.csv -- Dataset hasil model inference untuk melakukan analisa terhadap model prediksi.
+5. P1M2_rafi_siregar_conceptual.txt -- Conceptual Problem.
+6. eda_package.py -- Custom package untuk melakukan EDA.
+7. README.md -- Instruksi Milestone 2
+8. description.md -- Penjelasan gambaran umum project.
+9. AttritionBoosting.pkl -- Model machine learning yang digunakan untuk memprediksi attrition karyawan.
+10. Folder deployment -- Berisikan data-data model deployment proyek ini.
 
 ## Problem Background
 

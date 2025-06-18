@@ -1,3 +1,3 @@
 dataset attrition - https://www.kaggle.com/datasets/stealthtechnologies/employee-attrition-dataset
 hugging face deployment - https://huggingface.co/spaces/egar1444/EmployeeAttritionPrediction
-streamlit deployment - hhttps://attrition-hr.streamlit.app/
+streamlit deployment - https://attrition-hr.streamlit.app/
