@@ -332,6 +332,12 @@ def correlation_analysis(df, nilai_skew=0.5):
         display(signif_kendall_with_pval)
 
 # 6. Point-Bisserial Correlation
+# Fungsi untuk menghitung Cramer's V
+def cramer_v(contingency_table):
+    chi2, p_val, dof, ex = chi2_contingency(contingency_table)
+    n = contingency_table.sum().sum()
+    return np.sqrt(chi2 / (n * (min(contingency_table.shape) - 1)))
+
 def correlation_analysis_binary(df, target_col, alpha=0.05, h0=None, h1=None, show=True):
     # Periksa apakah kolom target ada dalam DataFrame
     if target_col not in df.columns:
@@ -417,11 +423,28 @@ def correlation_analysis_binary(df, target_col, alpha=0.05, h0=None, h1=None, sh
             chi2, p_val, dof, ex = chi2_contingency(contingency_table)
             signif = "Signifikan" if p_val < alpha else "Tidak signifikan"
 
+            # Menghitung Cramer's V
+            cramer_v_value = cramer_v(contingency_table)
+
+            # Menambahkan interpretasi Cramer's V
+            if cramer_v_value > 0.25:
+                cramer_interpretation = 'Very Strong'
+            elif cramer_v_value > 0.15:
+                cramer_interpretation = 'Strong'
+            elif cramer_v_value > 0.10:
+                cramer_interpretation = 'Moderate'
+            elif cramer_v_value > 0.05:
+                cramer_interpretation = 'Weak'
+            else:
+                cramer_interpretation = 'No or Very Weak'
+
             chi_results.append({
                 "Feature": col,
                 "Chi2": round(chi2, 3),
                 "p_value": round(p_val, 10),
-                "Significance": signif
+                "Significance": signif,
+                "Cramer's V": round(cramer_v_value, 3),
+                "Interpretation": cramer_interpretation
             })
 
         chi_df = pd.DataFrame(chi_results).sort_values(by='Chi2', ascending=False)
