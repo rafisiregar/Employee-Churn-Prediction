@@ -1,4 +1,3 @@
-
 # Employee Attrition Prediction Using Machine Learning
 
 ## Repository Outline
@@ -35,4 +34,5 @@ The project will utilize Python for data management and statistical analysis, wi
 1. [Employee Attrition Classification Dataset](https://www.kaggle.com/datasets/stealthtechnologies/employee-attrition-dataset): This dataset includes various features such as age, job satisfaction, salary, tenure, and more, which can be used to build a machine learning model to predict employee attrition.
 2. [A Comprehensive Guide to Data Imputation Techniques, Strategies, and Best Practices](https://medium.com/@tarangds/a-comprehensive-guide-to-data-imputation-techniques-strategies-and-best-practices-152a10fee543): A comprehensive article on data imputation techniques and best practices to handle missing data.
 3. **[ANALYSIS OF FACTORS AFFECTING EMPLOYEE RESIGNATION AT PT. SUMBER ALFARIA TRIJAYA TBK KOTA BANJARMASIN](https://eprints.uniska-bjm.ac.id/8005/1/ARTIKEL%20RATNA%20SARI%20FIX.pdf)**: This article discusses analysis and prediction related to employee attrition.
-4. [Streamlit – Interactive Web Applications](https://huggingface.co/spaces/egar1444/EmployeeAttritionPrediction): Streamlit is used to create an interactive web application allowing users to view visualizations and analysis results directly from the machine learning model for employee attrition prediction.
+4. [Streamlit – Employee Attrition Prediction](https://attrition-hr.streamlit.app/): Streamlit is used to create an interactive web application allowing users to view visualizations and analysis results directly from the machine learning model for employee attrition prediction.
+5. [HuggingFace - Employee Attrition Prediction](https://huggingface.co/spaces/egar1444/EmployeeAttritionPrediction): A HuggingFace Space used for real-time testing and visualization of the employee attrition prediction model.
